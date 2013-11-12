@@ -138,10 +138,10 @@ MonoBehaviour:
     normals: []
     tangents: []
     uvs:
-    - {x: .257816404, y: .351566404}
-    - {x: .507808566, y: .351566404}
-    - {x: .257816404, y: .601558566}
-    - {x: .507808566, y: .601558566}
+    - {x: .523441434, y: .273441404}
+    - {x: .773433566, y: .273441404}
+    - {x: .523441434, y: .523433566}
+    - {x: .773433566, y: .523433566}
     indices: 000000000300000001000000020000000300000000000000
     material: {fileID: 2100000, guid: 9174c0597f704744d83e3e0d463e648b, type: 2}
     materialId: 0
@@ -178,10 +178,10 @@ MonoBehaviour:
     normals: []
     tangents: []
     uvs:
-    - {x: .523441434, y: .273441404}
-    - {x: .773433566, y: .273441404}
-    - {x: .523441434, y: .523433566}
-    - {x: .773433566, y: .523433566}
+    - {x: .257816404, y: .351566404}
+    - {x: .507808566, y: .351566404}
+    - {x: .257816404, y: .601558566}
+    - {x: .507808566, y: .601558566}
     indices: 000000000300000001000000020000000300000000000000
     material: {fileID: 2100000, guid: 9174c0597f704744d83e3e0d463e648b, type: 2}
     materialId: 0
@@ -318,6 +318,44 @@ MonoBehaviour:
     colliderConvex: 0
     colliderSmoothSphereCollisions: 0
     attachPoints: []
+  - name: pistol
+    boundsData:
+    - {x: 0, y: -.0078125, z: 0}
+    - {x: .4375, y: .265625, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: -.0078125, z: 0}
+    - {x: .4375, y: .265625, z: 0}
+    texelSize: {x: .015625, y: .015625}
+    positions:
+    - {x: -.21875, y: -.140625, z: 0}
+    - {x: .21875, y: -.140625, z: 0}
+    - {x: -.21875, y: .125, z: 0}
+    - {x: .21875, y: .125, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .867191434, y: .265628904}
+    - {x: .976558566, y: .265628904}
+    - {x: .867191434, y: .332027346}
+    - {x: .976558566, y: .332027346}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 9174c0597f704744d83e3e0d463e648b, type: 2}
+    materialId: 0
+    sourceTextureGUID: c5ec4b9d20666ce43b37abd69bf72923
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    flipped: 0
+    complexGeometry: 0
+    colliderType: 1
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    attachPoints: []
   premultipliedAlpha: 0
   material: {fileID: 0}
   materials:
@@ -331,7 +369,7 @@ MonoBehaviour:
   loadable: 0
   invOrthoSize: 2
   halfTargetHeight: 32
-  buildKey: 274673225
+  buildKey: 989098157
   dataGuid: 3876b24f8ce43da4e8ab2c796c19cdcd
   managedSpriteCollection: 0
   hasPlatformData: 0

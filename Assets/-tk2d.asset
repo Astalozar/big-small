@@ -642,6 +642,7 @@ MonoBehaviour:
     - arm
     - crawler
     - hopper
+    - pistol
     spriteTextureGUIDs:
     - 38ac4b35315f86243a368ff89321f45e
     - 3d68e3c166a8f38448363d7e7f15c04c
@@ -650,6 +651,7 @@ MonoBehaviour:
     - d81a90d97e7be25409f357028cc475a3
     - c4409e0b2b6c7a5488dddb4f60cee4e6
     - da7a6dd3b9436364d8c05d336049ce79
+    - c5ec4b9d20666ce43b37abd69bf72923
     spriteTextureTimeStamps:
     - 1384285322.3016
     - 1384285322.2866
@@ -658,6 +660,7 @@ MonoBehaviour:
     - 1384285322.2536
     - 1384285322.2746
     - 1384285322.2816
+    - 1384287077.24298
     managedSpriteCollection: 0
     loadable: 0
     assetName: 

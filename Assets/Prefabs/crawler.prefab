@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerp: 0
+  doPrintState: 0
   surfaces:
     serializedVersion: 2
     m_Bits: 256
@@ -122,9 +123,10 @@ MonoBehaviour:
   jumpSpeed: 0
   jumpHeight: 0
   hookRadius: 0
-  maxHealth: 0
+  maxHealth: 50
   gravity: 2
-  knockbackDistance: 0
+  knockbackMultiplier: 1
+  knockbackSpeed: 12
   facing: 1
 --- !u!114 &11400004
 MonoBehaviour:

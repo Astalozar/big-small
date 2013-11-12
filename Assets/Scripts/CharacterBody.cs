@@ -6,6 +6,8 @@ using System.Collections;
 public class CharacterBody : MonoBehaviour {
 public bool lerp;
 	
+	public bool doPrintState = false;
+	
 	public LayerMask surfaces;
 	public LayerMask obstacles;
 	public LayerMask hooks;
@@ -65,7 +67,8 @@ public bool lerp;
 	// Gravity
 	public float gravity = 2;
 	private float currentGravity;
-	public float knockbackDistance;
+	public float knockbackMultiplier = 1;
+	public float knockbackSpeed = 12;
 	
 	// Jump handling
 	private float jumpResource;
@@ -110,6 +113,14 @@ public bool lerp;
 		currentHealth = maxHealth;
 	}
 	
+	
+	public void damage(int damage) {
+		currentHealth -= damage;
+		knockBack(new Vector2(1, 0.25f));
+		if(currentHealth <= 0) {
+			DestroyObject(gameObject);
+		}
+	}
 	// Jumping
 	
 	public void startJump(bool forced) {
@@ -118,7 +129,7 @@ public bool lerp;
 				state = States.jumping;
 				amountToMove.y = 0;
 				jumpResource = jumpHeight;
-				Debug.Log(state);
+				printState();
 			}
 		}
 	}
@@ -127,7 +138,7 @@ public bool lerp;
 		if((forcedMovement && forced) || !forcedMovement) {
 			if(state == States.jumping) {
 				state = States.falling;
-				Debug.Log(state);
+				printState();
 			}
 		}
 	}
@@ -176,8 +187,10 @@ public bool lerp;
 	// Movement orders
 	
 	public void moveTo(Vector2 position) {
-		forcedMovement = true;
-		destination = position;
+		if(state != States.knocked) {
+			forcedMovement = true;
+			destination = position;
+		}
 	}
 	
 	public void flyTo(Vector2 position) {
@@ -200,12 +213,12 @@ public bool lerp;
 		hookTo(position);
 	}
 	
-	public void knockBack() {
+	public void knockBack(Vector2 power) {
 		if(state != States.knocked) {	
 			forcedMovement = true;
-			destination = new Vector3(transform.position.x - facing * knockbackDistance, transform.position.y + knockbackDistance / 4);
+			destination = new Vector3(transform.position.x - facing * power.x, transform.position.y + power.y);			
 			state = States.knocked;
-			Debug.Log(state);
+			printState();
 		}
 	}
 	
@@ -214,7 +227,7 @@ public bool lerp;
 		
 		if(state == States.railing && direction.y < 0 ) {
 			state = States.falling;
-			Debug.Log(state);
+			printState();
 			forcedMovement = false;
 		}
 		
@@ -224,23 +237,23 @@ public bool lerp;
 				if(direction.y != 0) {
 					if(state != States.climbing && /*(state != States.dropping || direction.y > 0) &&*/ state != States.hooking && state != States.railing && state != States.knocked) {
 						state = States.climbing;
-						Debug.Log(state);
+						printState();
 					}
 				}
 			} else {
 				// If there are no ladders nearby and we are climbing - stop climbing
 				if(state == States.climbing) {
 					state = States.falling;
-					Debug.Log(state);
+					printState();
 				} else {
 					// If we are grounded
 					if(state == States.grounded && direction.y < 0) {
 						state = States.dropping;
-						Debug.Log(state);
+						printState();
 					} else {
 						if(state == States.dropping && direction.y >= 0) {
 							state = States.falling;
-							Debug.Log(state);
+							printState();
 						}
 					}
 				}
@@ -249,7 +262,7 @@ public bool lerp;
 			// If we are on a hook and press down, start falling 
 			if(!forcedMovement && state == States.hooking && (direction.y != 0 || direction.x != 0)) {
 				state = States.falling;
-				Debug.Log(state);
+				printState();
 			}
 					
 			
@@ -290,8 +303,8 @@ public bool lerp;
 					amountToMove.y = (destination - transform.position).normalized.y * railSpeed * Time.smoothDeltaTime;
 					break;
 				case States.knocked:
-					amountToMove.x = (destination - transform.position).normalized.x * jumpSpeed * Time.smoothDeltaTime;
-					amountToMove.y = (destination - transform.position).normalized.y * jumpSpeed * Time.smoothDeltaTime;
+					amountToMove.x = (destination - transform.position).normalized.x * knockbackSpeed * Time.smoothDeltaTime;
+					amountToMove.y = (destination - transform.position).normalized.y * knockbackSpeed * Time.smoothDeltaTime;
 					break;
 				default:
 					amountToMove.x = 0;
@@ -317,11 +330,11 @@ public bool lerp;
 					if(railing) {
 						railing = false;
 						state = States.railing;
-						Debug.Log(state);
+						printState();
 					} else {
 						if(!attachToHook) {
 							state = States.falling;
-							Debug.Log(state);
+							printState();
 						}
 						forcedMovement = false;
 					}
@@ -332,7 +345,7 @@ public bool lerp;
 				if(Mathf.Abs((transform.position.x - destination.x)) < eps) {
 					forcedMovement = false;
 					state = States.falling;
-					Debug.Log(state);
+					printState();
 					
 				} else {
 					if(Mathf.Abs(transform.position.x - prevPosition.x) == 0) {
@@ -364,7 +377,7 @@ public bool lerp;
 			// Nothing beneath our feet
 			if(dist == 0) {
 				state = States.falling;
-				Debug.Log(state);
+				printState();
 			}
 			break;
 		case States.falling:
@@ -374,7 +387,7 @@ public bool lerp;
 			// Hit the ground
 			if(dist != 0) {
 				state = States.grounded;
-				Debug.Log(state);
+				printState();
 			}
 			break;
 		case States.dropping:
@@ -384,7 +397,7 @@ public bool lerp;
 			// Hit the ground
 			if(dist != 0) {
 				state = States.grounded;
-				Debug.Log(state);
+				printState();
 			}
 			break;
 		case States.climbing:
@@ -394,7 +407,7 @@ public bool lerp;
 			// Hit something below us
 			if(dist != 0 && dir.y < 0) {
 				state = States.grounded;
-				Debug.Log(state);
+				printState();
 			}
 			break;
 		case States.jumping:
@@ -404,7 +417,7 @@ public bool lerp;
 			// Hit something above us
 			if(dist != 0) {
 				state = States.falling;
-				Debug.Log(state);
+				printState();
 			}
 			break;	
 		case States.hooking:
@@ -414,7 +427,7 @@ public bool lerp;
 			// Hit something 
 			if(dist != 0) {
 				state = States.falling;
-				Debug.Log(state);
+				printState();
 				forcedMovement = false;
 			}
 			break;
@@ -430,7 +443,7 @@ public bool lerp;
 			// Hit something above us
 			if(dist != 0) {
 				state = States.falling;
-				Debug.Log(state);
+				printState();
 			}
 			break;
 		default:
@@ -458,7 +471,7 @@ public bool lerp;
 			if(dist != 0) {
 				if(state == States.hooking || state == States.railing || state == States.knocked) {
 					state = States.falling;
-					Debug.Log(state);
+					printState();
 					forcedMovement = false;
 				}
 				if(dist > skin) {
@@ -496,13 +509,13 @@ public bool lerp;
 			ladderContacts++;
 		}
 		if(other.tag == "Door") {
-			knockBack();
+			knockBack(new Vector2(1, 0.25f));
 		}
 		if(other.tag == "DoorSensor") {
 			((DoorSensor)(other.GetComponent<DoorSensor>())).openDoor();
 		}
 		if(other.tag == "Enemy" && state != States.knocked) {
-			knockBack();
+			knockBack(new Vector2(1, 0.25f));
 		}
     }
 	
@@ -515,4 +528,11 @@ public bool lerp;
 		}
 
     }
+	
+	
+	void printState() {
+		if(doPrintState) {
+			Debug.Log(state);
+		}
+	}
 }
