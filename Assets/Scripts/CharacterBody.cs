@@ -70,6 +70,11 @@ public bool lerp;
 	public float knockbackMultiplier = 1;
 	public float knockbackSpeed = 12;
 	
+	// Momentum
+	private float currentMomentum;
+	private float momentumSpeed;
+	private int momentumDirection;
+	
 	// Jump handling
 	private float jumpResource;
 
@@ -264,19 +269,22 @@ public bool lerp;
 				state = States.falling;
 				printState();
 			}
-					
+			
 			
 			switch (state) {
 				case States.grounded:
 					amountToMove.x = direction.x * walkSpeed * Time.smoothDeltaTime;
+					applyMomentum();
 					amountToMove.y = -currentGravity * Time.deltaTime;
 					break;
 				case States.falling:
 					amountToMove.x = direction.x * walkSpeed * Time.smoothDeltaTime;
+					applyMomentum();
 					amountToMove.y -= currentGravity * Time.deltaTime;
 					break;
 				case States.dropping:
 					amountToMove.x = direction.x * walkSpeed * Time.smoothDeltaTime;
+					applyMomentum();
 					amountToMove.y -= currentGravity * Time.deltaTime;
 					break;
 				case States.climbing:
@@ -285,6 +293,7 @@ public bool lerp;
 					break;
 				case States.jumping:
 					amountToMove.x = direction.x * walkSpeed * Time.smoothDeltaTime;
+					applyMomentum();
 					if(jumpResource > 0 || infinteJump) {
 						float toJump = jumpSpeed * Time.deltaTime;
 						amountToMove.y = toJump - currentGravity * Time.smoothDeltaTime;
@@ -301,6 +310,7 @@ public bool lerp;
 				case States.railing:
 					amountToMove.x = (destination - transform.position).normalized.x * railSpeed * Time.smoothDeltaTime;
 					amountToMove.y = (destination - transform.position).normalized.y * railSpeed * Time.smoothDeltaTime;
+					currentMomentum += Mathf.Abs(amountToMove.x / 2);
 					break;
 				case States.knocked:
 					amountToMove.x = (destination - transform.position).normalized.x * knockbackSpeed * Time.smoothDeltaTime;
@@ -329,6 +339,8 @@ public bool lerp;
 				if(Mathf.Abs(Vector2.Distance(transform.position, destination)) < eps) {
 					if(railing) {
 						railing = false;
+						currentMomentum = 0;
+						momentumDirection = facing;
 						state = States.railing;
 						printState();
 					} else {
@@ -479,6 +491,7 @@ public bool lerp;
 				} else {
 					moveBy.x = 0;
 				}
+				currentMomentum = 0;
 			}	
 		}
 		
@@ -533,6 +546,22 @@ public bool lerp;
 	void printState() {
 		if(doPrintState) {
 			Debug.Log(state);
+		}
+	}
+	
+	
+	void applyMomentum() {
+		float momentum;
+		if(currentMomentum > 0) {
+			momentum = momentumDirection * currentMomentum * Time.smoothDeltaTime;
+			Debug.Log(momentum + " " + amountToMove.x);
+			if(Mathf.Abs(momentum) > eps && Mathf.Abs(momentum) > Mathf.Abs(amountToMove.x)) {
+				amountToMove.x += momentum;
+				currentMomentum -= Mathf.Abs(momentum);
+			} else {
+				amountToMove.x += momentum;
+				currentMomentum = 0;
+			}
 		}
 	}
 }
