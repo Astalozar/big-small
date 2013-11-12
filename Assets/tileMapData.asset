@@ -1,0 +1,222 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb356b9a6a1da084695128b00c8721be, type: 3}
+  m_Name: tileMapData
+  m_EditorClassIdentifier: 
+  tileSize: {x: 1, y: 1, z: 0}
+  tileOrigin: {x: -.5, y: -.5, z: 0}
+  tileType: 0
+  sortMethod: 0
+  layersFixedZ: 0
+  tilePrefabs:
+  - {fileID: 100000, guid: 6c6d3d975a60b4246896872eb9e24219, type: 2}
+  - {fileID: 100000, guid: bfd5693983b326c48b7b65d4bcf0ff00, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 100000, guid: 9a47b4f6500335b4db4a93d144b155f0, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 100000, guid: 69b7593b61b8dbe4ca8d071485f04d21, type: 2}
+  tileInfo:
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  - stringVal: 
+    intVal: 0
+    floatVal: 0
+    enablePrefabOffset: 0
+  tileMapLayers:
+  - name: background
+    hash: 1892887448
+    useColor: 1
+    generateCollider: 1
+    z: 0
+    unityLayer: 2
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: farWalls
+    hash: 2070100234
+    useColor: 1
+    generateCollider: 1
+    z: .0500000007
+    unityLayer: 2
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: doors
+    hash: 1168029042
+    useColor: 1
+    generateCollider: 1
+    z: .0500000007
+    unityLayer: 12
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: solidWalls
+    hash: 1491486964
+    useColor: 1
+    generateCollider: 1
+    z: .0500000007
+    unityLayer: 9
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: hooks
+    hash: 1353039915
+    useColor: 1
+    generateCollider: 1
+    z: 0
+    unityLayer: 11
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: interactiveBackground
+    hash: 1510018402
+    useColor: 1
+    generateCollider: 1
+    z: 0
+    unityLayer: 2
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: obstacles
+    hash: 1272089604
+    useColor: 1
+    generateCollider: 1
+    z: .0500000007
+    unityLayer: 9
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: platforms
+    hash: 1017848213
+    useColor: 1
+    generateCollider: 1
+    z: 0
+    unityLayer: 8
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: rails
+    hash: 183781629
+    useColor: 1
+    generateCollider: 1
+    z: 0
+    unityLayer: 13
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: ladders
+    hash: 761613922
+    useColor: 1
+    generateCollider: 1
+    z: .0500000007
+    unityLayer: 2
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: physicsDecorations
+    hash: 436780881
+    useColor: 1
+    generateCollider: 1
+    z: .0500000007
+    unityLayer: 10
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
+  - name: foreground
+    hash: 124690074
+    useColor: 1
+    generateCollider: 1
+    z: 0
+    unityLayer: 2
+    skipMeshGeneration: 0
+    physicMaterial: {fileID: 0}
