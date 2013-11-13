@@ -14,23 +14,27 @@ public class PlayerController : MonoBehaviour {
 	public GameObject armPivot;
 	
 	private CharacterBody body;
+	private tk2dSprite sprite;
 	
 	void Start () {
 		body = GetComponent<CharacterBody>();
+		sprite = GetComponent<tk2dSprite>();
 	}
 	
 	void Update () {
 		
 		// Update arm position
-		Vector2 armPoint = new Vector2(body.facing, 0);
-		gameObject.transform.localScale =  new Vector3(body.facing, 1, 1);
+		Vector2 armPoint = new Vector2(1, 0);
+		arm.transform.localScale =  new Vector3(body.facing, 1, 1);
 		Vector2 mousePoint = mainCamera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 		float angle = Vector2.Angle(armPoint, mousePoint);
-	
+		if(body.facing < 0) {
+			angle += 180;
+		}
 		if(mousePoint.y < armPoint.y) {
 			angle = 360 - angle;
 		}
-
+		sprite.scale = new Vector3(body.facing * Mathf.Abs(sprite.scale.x), sprite.scale.y, sprite.scale.z);
 		arm.transform.Rotate(new Vector3(0, 0, angle - arm.transform.eulerAngles.z));// armPivot.transform.position, Vector3.forward, angle - arm.transform.eulerAngles.z);
 		
 		if(Input.GetButtonDown("Jump")) {
